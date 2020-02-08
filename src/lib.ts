@@ -15,7 +15,6 @@ import { Transactions, Identities, Managers, Interfaces } from '@uns/ark-crypto'
 
 import { NETWORK, SECOND_PASSPHRASE, PASSPHRASE } from './config'
 
-
 /** UNS client instance */
 let unsClient: UNSClient
 
@@ -29,7 +28,7 @@ const getLatestBlockHeight = async (): Promise<number> => {
 /**
  * Initialize the UNS client instance and the `@uns/ark-crypto` lib settings
  * Set the latest available block height to use latest features
- * 
+ *
  * As the uns.network block height is too low, the ark-crypto lib doesn't accept it
  * as api version 2.
  * Probably a conflict with how the lib is handled.
@@ -42,7 +41,6 @@ export const initCrypto = async () => {
   // Managers.configManager.setHeight(await getLatestBlockHeight())
   Managers.configManager.setHeight(9999999999)
 }
-
 
 /** Get a wallet next transaction nonce */
 const getNextNonce = async (walletAddress: string) => {
@@ -63,14 +61,13 @@ const signTransaction = async (
   receiverAddress: string,
   amount: string = `${0.1 * 1e8}`,
   fee: string = `${0.01 * 1e8}`,
-  vendorField: string = '',
+  vendorField: string = ''
 ) => {
   // Get wallet's next transaction nonce
   const nextNonce = await getNextNonce(Identities.Address.fromPassphrase(PASSPHRASE))
 
   // Build the transaction
-  let transactionToSend = Transactions.BuilderFactory
-    .transfer()
+  let transactionToSend = Transactions.BuilderFactory.transfer()
     .recipientId(receiverAddress)
     .amount(amount)
     .fee(fee)
@@ -81,7 +78,10 @@ const signTransaction = async (
   // Set the bridge chain field
   if (vendorField) transactionToSend.vendorField(vendorField)
 
-  return transactionToSend.sign(PASSPHRASE).secondSign(SECOND_PASSPHRASE).getStruct()
+  return transactionToSend
+    .sign(PASSPHRASE)
+    .secondSign(SECOND_PASSPHRASE)
+    .getStruct()
 }
 
 /**
@@ -90,7 +90,6 @@ const signTransaction = async (
  */
 const sendTransaction = (transaction: Interfaces.ITransactionData) => unsClient.transaction.send(transaction)
 
-
 /**
  * Send a transaction
  * @param receiverAddress Recipient wallet address
@@ -98,6 +97,9 @@ const sendTransaction = (transaction: Interfaces.ITransactionData) => unsClient.
  * @param fee Amount of SUNS used for the transaction fee (default = 0.01 SUNS = 0.01 * 1e8 sunstoshi)
  * @param vendorField Vendor field (SmartBridge)
  */
-export const send = async (receiverAddress: string, amount = `${0.1 * 1e8}`, fee = `${0.01 * 1e8}`, vendorField?: string) =>
-  signTransaction(receiverAddress, amount, fee, vendorField)
-    .then(res => sendTransaction(res))
+export const send = async (
+  receiverAddress: string,
+  amount = `${0.1 * 1e8}`,
+  fee = `${0.01 * 1e8}`,
+  vendorField?: string
+) => signTransaction(receiverAddress, amount, fee, vendorField).then(res => sendTransaction(res))

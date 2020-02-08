@@ -18,20 +18,23 @@ app.post('/gift', async (req, res) => {
 
     const outAddress = req.query.address
 
-    if (!outAddress)
-      throw new Error('You must pass an UNS wallet address.')
+    if (!outAddress) throw new Error('You must pass an UNS wallet address.')
 
-    if (!Database.isGiftable(outAddress, req.ip))
-      throw new Error('Last SUNS gift was too soon.')
+    if (!Database.isGiftable(outAddress, req.ip)) throw new Error('Last SUNS gift was too soon.')
 
     const sendResult = await send(outAddress, GIFT_AMOUNT, GIFT_FEE, GIFT_VENDORFIELD)
     Database.add({ address: outAddress, amount: GIFT_AMOUNT, ip: req.ip, timestamp: new Date() })
 
-    res.json(sendResult)
-  }
-  catch (error) {
+    res.json({ data: sendResult })
+  } catch (error) {
     res.status(409).json({ error: error.message })
   }
+})
+
+// Get total SUNS tokens gifted
+app.get('/giftedTokensTotal', (req, res) => {
+  res.set('Content-Type', 'application/json')
+  res.json({ data: Database.getGiftedTokensTotal() })
 })
 
 // Serve application

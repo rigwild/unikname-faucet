@@ -8,18 +8,20 @@ export declare interface GiftEntry {
 }
 
 export class Database {
-  private constructor() { }
+  private constructor() {}
 
-  private static db: GiftEntry[] = []
+  private static giftsHistory: GiftEntry[] = []
+  private static giftedTokensTotal: number = 0
 
   public static add(entry: GiftEntry) {
-    this.db.push(entry)
+    this.giftsHistory.push(entry)
+    this.giftedTokensTotal += parseInt(entry.amount, 10)
   }
 
-  public static lastGift(address: string, ip: string) {
-    const lastGifts = this.db
+  private static lastGift(address: string, ip: string) {
+    const lastGifts = this.giftsHistory
       .filter(entry => entry.address === address || entry.ip === ip)
-      .sort((a, b) => a.timestamp < b.timestamp ? 1 : -1)
+      .sort((a, b) => (a.timestamp < b.timestamp ? 1 : -1))
 
     // Never received a gift
     if (lastGifts.length === 0) return null
@@ -32,5 +34,9 @@ export class Database {
     const lastGift = Database.lastGift(address, ip)
     if (!lastGift) return true
     return lastGift.timestamp.valueOf() < Date.now() - GIFT_INTERVAL_DELAY_MS
+  }
+
+  public static getGiftedTokensTotal() {
+    return this.giftedTokensTotal
   }
 }
