@@ -1,0 +1,64 @@
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  background-color: #333333;
+}
+.container {
+  font-family: Arial, Helvetica, sans-serif;
+  width: 800px;
+  margin: 0 auto;
+  color: #aaaaaa;
+  text-align: center;
+}
+a {
+  color: white;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+textarea,
+input,
+button {
+  padding: 10px;
+  margin: 5px;
+  background-color: #424242;
+  border: none;
+  color: #f0f0f0;
+  font-size: 16px;
+  border-radius: 10px;
+  text-align: center;
+}
+textarea {
+  text-align: left;
+}
+.walletAddress {
+  width: 100%;
+  height: 50px;
+  font-size: 20px;
+}
+.sendBtn {
+  cursor: pointer;
+}
+
+.loading {
+  padding: 20px;
+}
+
+.info {
+  margin-top: 50px;
+}
+
+.logs {
+  margin-top: 20px;
+}
+.logs textarea {
+  width: 100%;
+  height: 250px;
+}
+
+.meta {
+  margin-top: 50px;
+}

@@ -4,9 +4,54 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Hello</title>
+    <title>UNS faucet</title>
+    <link rel="stylesheet" href="style.css">
   </head>
   <body>
-    hello world
+    <div id="app">
+      <div class="container">
+        <h1>UNS Sandbox network faucet</h1>
+        <form @submit.prevent="sendTokens" class="main-form">
+          <input v-model="walletAddress" class="walletAddress" placeholder="Your UNS Sandbox Crypto Account address" required />
+          <button type="submit" class="sendBtn">Send SUNS</button>
+        </form>
+
+        <div v-if="loading" class="loading">
+          <img src="ball-triangle.svg" width="50">
+        </div>
+
+        <div v-if="logs" class="logs">
+          <textarea v-model="logs"></textarea>
+        </div>
+
+        <div class="info">
+          <p>
+            Want to try the <a href="https://uns.network" rel="noopener">uns.network</a> ?<br><br>
+            Enter your Sandbox network Crypto Account address in the field above.<br>
+            You will receive some SUNS tokens.<br><br>
+            Note: you can request SUNS tokens from this faucet <b>once per week</b>.
+          </p>
+
+          <p>
+            SUNS tokens left in faucet's Crypto Account: <b>{{ remainingTokens }} SUNS.</b>
+          </p>
+        </div>
+
+        <div class="meta">
+          <p>
+            Faucet explorer links<br>
+            <a href="https://sandbox.explorer.uns.network/uniks/125e0dc14741798deab6cc607deb44eca88b8cb5eb45094394cc2fcf3efb6e75" rel="noopener">UNIK</a>
+            -
+            <a href="https://sandbox.explorer.uns.network/wallets/SexLXR9bhrokaoBUiXiTggdLGK6VUaAHPR" rel="noopener">Crypto account</a>
+          </p>
+          <p>
+            Made with 💖 by <a href="https://github.com/rigwild" rel="noopener">rigwild</a><br>
+            <a href="https://github.com/rigwild/uns-faucet" rel="noopener">Available on GitHub</a>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <script type="module" src="index.mjs"></script>
   </body>
 </html>
