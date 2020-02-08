@@ -2,6 +2,7 @@
   "name": "uns-faucet",
   "version": "1.0.0",
   "private": true,
+  "description": "A faucet to gift SUNS tokens to uns.network users 🤑💸",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "directories": {
@@ -15,6 +16,8 @@
   "license": "MIT",
   "dependencies": {
     "@uns/cli": "^2.2.0",
+    "@uns/crypto": "^4.2.3",
+    "@uns/ts-sdk": "^2.2.0",
     "dotenv-safe": "^8.2.0",
     "express": "^4.17.1"
   },

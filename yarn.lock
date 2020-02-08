@@ -266,7 +266,7 @@
   dependencies:
     "@uns/ark-crypto" "^4.2.3"
 
-"@uns/crypto@^4.2.2":
+"@uns/crypto@^4.2.2", "@uns/crypto@^4.2.3":
   version "4.2.3"
   resolved "https://registry.yarnpkg.com/@uns/crypto/-/crypto-4.2.3.tgz#3edf788e5798205f8acdca94bff05d0c2a20773b"
   integrity sha512-T03moAIH15E7ukyfBiBTcLt93idqVbcC13AuctCc46+ub6C98sUT8V7EQGuE7dOProoMFz4QnjmPrqSKazEDJw==

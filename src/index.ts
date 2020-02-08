@@ -1,12 +1,15 @@
 import path from 'path'
 import express from 'express'
 
-import { SERVER_PORT, GIFT_AMOUNT } from './config'
+import { SERVER_PORT, GIFT_AMOUNT, GIFT_FEE, GIFT_VENDORFIELD } from './config'
 import { Database } from './db'
-import { send } from './lib'
+import { send, initCrypto } from './lib'
 
 const app = express()
 app.set('trust proxy', true)
+
+// Initialize crypto lib
+initCrypto().then(() => console.log('Crypto lib initialized.'))
 
 // Gift SUNS route
 app.post('/gift', async (req, res) => {
@@ -21,18 +24,13 @@ app.post('/gift', async (req, res) => {
     if (!Database.isGiftable(outAddress, req.ip))
       throw new Error('Last SUNS gift was too soon.')
 
-    const sendCommandResult = await send(outAddress, GIFT_AMOUNT)
+    const sendResult = await send(outAddress, GIFT_AMOUNT, GIFT_FEE, GIFT_VENDORFIELD)
     Database.add({ address: outAddress, amount: GIFT_AMOUNT, ip: req.ip, timestamp: new Date() })
 
-    res.json(
-      sendCommandResult.stdout.length > 0
-        ? sendCommandResult.stdout[0]
-        : sendCommandResult
-    )
+    res.json(sendResult)
   }
   catch (error) {
-    res.status(error.stderr ? 409 : 400)
-    res.json({ error: error['message'] || error['stderr'] })
+    res.status(409).json({ error: error.message })
   }
 })
 

@@ -2,7 +2,7 @@ import { GIFT_INTERVAL_DELAY_MS } from './config'
 
 export declare interface GiftEntry {
   address: string
-  amount: number
+  amount: string
   ip: string
   timestamp: Date
 }
