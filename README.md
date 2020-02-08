@@ -25,7 +25,7 @@ Copy [`.env.example`](`.env.example`) to `.env`.
 | Variable | Description | Example |
 | -------- | ----------- | ------- |
 | `SERVER_PORT` | HTTP port the server will listen | `8080` |
-| `GIFT_INTERVAL_DELAY_MS` | Delay a user must wait before asking for another gift | `604800000` |
+| `GIFT_INTERVAL_DELAY_MS` | Delay a user must wait before asking for another gift in ms | `604800000` (1 week) |
 | `GIFT_AMOUNT` | Gift amount in SUNS | `35` (35 SUNS) |
 | `GIFT_FEE` | Gift amount in SUNS | `0.1` (0.1 SUNS) |
 | `GIFT_VENDORFIELD` | Message set in the Smartbridge field | `'Faucet money 🤑💸'` |
