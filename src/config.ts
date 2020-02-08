@@ -8,11 +8,12 @@ dotenvSafe.config({
   example: path.resolve(__dirname, '..', '.env.example')
 })
 
-export const { NETWORK, PASSPHRASE, SECOND_PASSPHRASE, GIFT_VENDORFIELD, GIFT_AMOUNT, GIFT_FEE } = process.env as {
-  [key: string]: string
-}
-
-export const { SERVER_PORT, GIFT_INTERVAL_DELAY_MS } = (process.env as unknown) as { [key: string]: number }
+const env = process.env as { [key: string]: string }
+export const { NETWORK, PASSPHRASE, SECOND_PASSPHRASE, GIFT_VENDORFIELD } = env
+export const SERVER_PORT = parseInt(env.SERVER_PORT, 10)
+export const GIFT_INTERVAL_DELAY_MS = parseInt(env.GIFT_INTERVAL_DELAY_MS, 10)
+export const GIFT_AMOUNT = parseInt(env.GIFT_AMOUNT, 10)
+export const GIFT_FEE = parseInt(env.GIFT_FEE, 10)
 
 export const isWindows = os.platform() === 'win32'
 export const unsExecutable = path.resolve(__dirname, '..', 'node_modules', '.bin', isWindows ? 'uns.cmd' : 'uns')

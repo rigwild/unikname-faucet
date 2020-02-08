@@ -3,7 +3,7 @@ import { GIFT_INTERVAL_DELAY_MS, dbFilePath } from './config'
 
 export declare interface GiftEntry {
   address: string
-  amount: string
+  amount: number
   ip: string
   timestamp: Date
 }
@@ -39,7 +39,7 @@ class Database {
     if (!this.isReady) throw new Error('You must initialize the database.')
 
     this.giftsHistory.push(entry)
-    this.giftedTokensTotal += parseInt(entry.amount, 10)
+    this.giftedTokensTotal += entry.amount
     return this.saveDb()
   }
 
@@ -68,7 +68,7 @@ class Database {
   public getGiftedTokensTotal() {
     if (!this.isReady) throw new Error('You must initialize the database.')
 
-    return this.giftedTokensTotal / 1e8
+    return this.giftedTokensTotal
   }
 }
 

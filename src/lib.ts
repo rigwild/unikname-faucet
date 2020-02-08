@@ -93,16 +93,12 @@ const sendTransaction = (transaction: Interfaces.ITransactionData) => unsClient.
 /**
  * Send a transaction
  * @param receiverAddress Recipient wallet address
- * @param amount Amount of SUNS to send in sunstoshi (default = 0.1 SUNS = 0.1 * 1e8 sunstoshi)
- * @param fee Amount of SUNS used for the transaction fee (default = 0.01 SUNS = 0.01 * 1e8 sunstoshi)
+ * @param amount Amount of SUNS to send in sunstoshi (default = 0.1 SUNS)
+ * @param fee Amount of SUNS used for the transaction fee (default = 0.01 SUNS)
  * @param vendorField Vendor field (SmartBridge)
  */
-export const send = async (
-  receiverAddress: string,
-  amount = `${0.1 * 1e8}`,
-  fee = `${0.01 * 1e8}`,
-  vendorField?: string
-) => signTransaction(receiverAddress, amount, fee, vendorField).then(res => sendTransaction(res))
+export const send = async (receiverAddress: string, amount = 0.1, fee = 0.01, vendorField?: string) =>
+  signTransaction(receiverAddress, `${amount * 1e8}`, `${fee * 1e8}`, vendorField).then(res => sendTransaction(res))
 
 /** Get remaining tokens amount in faucet's wallet (in SUNS) */
 export const getWalletTokensAmount = async () => {
