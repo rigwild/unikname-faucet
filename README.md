@@ -1,6 +1,9 @@
 # UNS Faucet
 A faucet to gift SUNS tokens to [uns.network](https://www.uns.network/) users 🤑💸.
 
+## Faucet link
+[uns-faucet.rigwild.dev](https://uns-faucet.rigwild.dev)
+
 ## Install
 ```sh
 git clone https://github.com/rigwild/uns-faucet
@@ -9,12 +12,6 @@ yarn
 ```
 
 ## Build
-You need [Parcel bundler](https://github.com/parcel-bundler/parcel) to build the project.
-```sh
-yarn global add parcel-bundler
-```
-
-You can then build it.
 ```sh
 yarn build
 ```
