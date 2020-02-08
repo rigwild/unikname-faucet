@@ -5,6 +5,7 @@ new Vue({
     return {
       walletAddress: '',
       remainingTokens: 0,
+      giftedTokensTotal: 0,
 
       logs: '',
       loading: false
@@ -12,8 +13,13 @@ new Vue({
   },
   async mounted() {
     await this.loadRemainingTokensAmount()
+    await this.loadGiftedTokensTotal()
+
     // Refresh every 30s
-    setInterval(() => this.loadRemainingTokensAmount(), 30000)
+    setInterval(() => {
+      this.loadRemainingTokensAmount()
+      this.loadGiftedTokensTotal()
+    }, 30000)
   },
   methods: {
     async sendTokens() {
@@ -35,6 +41,10 @@ new Vue({
     async loadRemainingTokensAmount() {
       const res = await fetch('/tokensLeft').then(res => res.json())
       this.remainingTokens = res.data
+    },
+    async loadGiftedTokensTotal() {
+      const res = await fetch('/giftedTokensTotal').then(res => res.json())
+      this.giftedTokensTotal = res.data
     }
   }
 }).$mount('#app')

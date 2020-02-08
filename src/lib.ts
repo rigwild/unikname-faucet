@@ -103,3 +103,10 @@ export const send = async (
   fee = `${0.01 * 1e8}`,
   vendorField?: string
 ) => signTransaction(receiverAddress, amount, fee, vendorField).then(res => sendTransaction(res))
+
+/** Get remaining tokens amount in faucet's wallet (in SUNS) */
+export const getWalletTokensAmount = async () => {
+  const walletData = await unsClient.wallet.get(Identities.Address.fromPassphrase(PASSPHRASE))
+  if (walletData.data) return walletData.data.balance / 1e8
+  return -1
+}

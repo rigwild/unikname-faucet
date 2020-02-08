@@ -4,6 +4,9 @@ A faucet to gift SUNS tokens to [uns.network](https://www.uns.network/) users ðŸ
 ## Faucet link
 [uns-faucet.rigwild.dev](https://uns-faucet.rigwild.dev)
 
+## Screenshot
+![App screenshot](screenshot.jpg)
+
 ## Install
 ```sh
 git clone https://github.com/rigwild/uns-faucet
@@ -34,9 +37,6 @@ Copy [`.env.example`](`.env.example`) to `.env`.
 ```sh
 yarn start
 ```
-
-## Screenshot
-![App screenshot](screenshot.jpg)
 
 ## License
 [The MIT License](./LICENSE).
