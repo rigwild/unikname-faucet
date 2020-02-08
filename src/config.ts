@@ -16,3 +16,5 @@ export const { SERVER_PORT, GIFT_INTERVAL_DELAY_MS } = (process.env as unknown) 
 
 export const isWindows = os.platform() === 'win32'
 export const unsExecutable = path.resolve(__dirname, '..', 'node_modules', '.bin', isWindows ? 'uns.cmd' : 'uns')
+
+export const dbFilePath = path.resolve(__dirname, '..', 'db.json')
