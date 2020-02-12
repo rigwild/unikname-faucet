@@ -1,9 +1,10 @@
 import path from 'path'
 import express from 'express'
 
-import { SERVER_PORT, GIFT_AMOUNT, GIFT_FEE, GIFT_VENDORFIELD } from './config'
+import { SERVER_PORT, GIFT_AMOUNT, GIFT_FEE, GIFT_VENDORFIELD, NETWORK } from './config'
 import Database from './db'
 import { send, initCrypto, getWalletTokensAmount } from './lib'
+import { Network, didResolve } from '@uns/ts-sdk'
 
 const app = express()
 app.set('trust proxy', true)
@@ -13,9 +14,26 @@ app.post('/gift', async (req, res) => {
   try {
     res.set('Content-Type', 'application/json')
 
-    const outAddress = req.query.walletAddress
+    let outAddress = req.query.walletAddress;
 
-    if (!outAddress) throw new Error('You must pass an UNS wallet address.')
+    if (!outAddress)
+      throw new Error("You must pass an UNS wallet address or a Unikname.");
+
+    if (outAddress.startsWith("@")) {
+      const DID_DEFAULT_QUERY = "?*";
+      const resolve = (
+        await didResolve(
+          `${outAddress}${
+            outAddress.endsWith(DID_DEFAULT_QUERY) ? "" : DID_DEFAULT_QUERY
+          }`,
+          NETWORK as Network
+        )
+      );
+      if (resolve.error) {
+        throw resolve.error;
+      }
+      outAddress = resolve.data as string;
+    }
 
     if (!Database.isGiftable(outAddress, req.ip)) throw new Error('Last SUNS gift was too soon.')
 

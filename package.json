@@ -24,6 +24,7 @@
     "fs-extra": "^8.1.0"
   },
   "devDependencies": {
+    "@types/bytebuffer": "^5.0.40",
     "@types/dotenv-safe": "^8.1.0",
     "@types/express": "^4.17.2",
     "@types/fs-extra": "^8.0.1",
