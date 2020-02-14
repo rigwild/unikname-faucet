@@ -1,11 +1,11 @@
-import os from 'os'
 import path from 'path'
 import dotenvSafe from 'dotenv-safe'
 
 // Load environment configuration
 dotenvSafe.config({
   path: path.resolve(__dirname, '..', '.env'),
-  example: path.resolve(__dirname, '..', '.env.example')
+  example: path.resolve(__dirname, '..', '.env.example'),
+  allowEmptyValues: true
 })
 
 const env = process.env as { [key: string]: string }
@@ -14,8 +14,5 @@ export const SERVER_PORT = parseInt(env.SERVER_PORT, 10)
 export const GIFT_INTERVAL_DELAY_MS = parseInt(env.GIFT_INTERVAL_DELAY_MS, 10)
 export const GIFT_AMOUNT = parseFloat(env.GIFT_AMOUNT)
 export const GIFT_FEE = parseFloat(env.GIFT_FEE)
-
-export const isWindows = os.platform() === 'win32'
-export const unsExecutable = path.resolve(__dirname, '..', 'node_modules', '.bin', isWindows ? 'uns.cmd' : 'uns')
 
 export const dbFilePath = path.resolve(__dirname, '..', 'db.json')
