@@ -25,6 +25,7 @@ Copy [`.env.example`](`.env.example`) to `.env`.
 | Variable | Description | Example |
 | -------- | ----------- | ------- |
 | `SERVER_PORT` | HTTP port the server will listen | `8080` |
+| `DATABASE_CLEANUP_CRONTIME` | Interval between database cleanups | `''0 * * * *'` (1 every hours) |
 | `GIFT_INTERVAL_DELAY_MS` | Delay a user must wait before asking for another gift in ms | `604800000` (1 week) |
 | `GIFT_AMOUNT` | Gift amount in SUNS | `100` (100 SUNS) |
 | `GIFT_FEE` | Gift transaction fee in SUNS | `1` (1 SUNS) |
@@ -37,6 +38,9 @@ Copy [`.env.example`](`.env.example`) to `.env`.
 ```sh
 yarn start
 ```
+
+## Note
+To limit abuses, you can ask for tokens once per week. You wallet address and IP address are saved for a duration of 1 week then automatically removed from the database.
 
 ## License
 [The MIT License](./LICENSE).

@@ -1,10 +1,11 @@
 import path from 'path'
 import express from 'express'
+import { Network, didResolve } from '@uns/ts-sdk'
 
 import { SERVER_PORT, GIFT_AMOUNT, GIFT_FEE, GIFT_VENDORFIELD, NETWORK } from './config'
 import Database from './db'
+import { startDbCleanerService } from './cron'
 import { send, initCrypto, getWalletTokensAmount } from './lib'
-import { Network, didResolve } from '@uns/ts-sdk'
 
 const app = express()
 app.set('trust proxy', true)
@@ -82,6 +83,10 @@ export const startServer = async () => {
   // Initialize crypto lib
   await initCrypto()
   console.log('Crypto lib initialized.')
+
+  // Start the database cleaner service
+  startDbCleanerService()
+  console.log('Database cleaner service started.')
 
   // Start the server
   app.listen(SERVER_PORT, () =>
