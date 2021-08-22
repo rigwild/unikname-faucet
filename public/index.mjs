@@ -8,6 +8,7 @@ new Vue({
       giftedTokensTotal: 0,
 
       logs: '',
+      giftSuccessTransactionId: '',
       loading: false
     }
   },
@@ -26,8 +27,11 @@ new Vue({
       try {
         this.loading = true
         this.logs = ''
+        this.giftSuccessTransactionId = ''
         const res = await fetch(`/gift?walletAddress=${this.walletAddress}`, { method: 'POST' }).then(res => res.json())
-        this.logs = JSON.stringify(res, null, 2)
+        if (res.data?.accept?.length > 0) this.giftSuccessTransactionId = res.data.accept[0]
+        else if (res.error) throw new Error(res.error)
+        else this.logs = JSON.stringify(res, null, 2)
       } catch (error) {
         this.logs = error.message
       } finally {

@@ -26,17 +26,26 @@
           <img src="ball-triangle.svg" width="50" />
         </div>
 
-        <div v-if="logs" class="logs">
-          <textarea v-model="logs"></textarea>
+        <div class="logs">
+          <div v-if="giftSuccessTransactionId">
+            Your SUNIK tokens were sent! Explorer link:
+            <a
+              :href="`https://sandbox.explorer.unikname.network/transaction/${giftSuccessTransactionId}`"
+              target="_blank"
+              rel="noopener"
+              class="wrap"
+              >https://sandbox.explorer.unikname.network/transaction/{{ giftSuccessTransactionId }}</a
+            >
+          </div>
+          <textarea v-else-if="logs" v-model="logs"></textarea>
         </div>
 
         <div class="info">
           <p>
-            Want to try the <a href="https://unikname.network" rel="noopener">unikname.network</a>?<br /><br />
+            Want to try out <a href="https://unikname.network" rel="noopener">unikname.network</a>?<br /><br />
             Enter your Unikname Sandbox Crypto Account address in the field above.<br />
             You will receive some SUNIK tokens.<br />
-            <a href="https://docs.unikname.network/interacting-with-uns.html" rel="noopener"
-              >Interacting with the unikname.network</a
+            <a href="https://docs.unikname.network/introduction.html" rel="noopener">Understanding unikname.network</a
             ><br /><br />
             Note: you can request SUNIK tokens from this faucet <b>once per week</b>.<br />
           </p>
@@ -49,7 +58,7 @@
 
         <div class="meta">
           <p>
-            Faucet explorer links<br />
+            Links to the Faucet Crypto Account in the explorer<br />
             <a
               href="https://sandbox.explorer.unikname.network/uniks/8709fcecb6748ced397fd2d98bcb931c51832886f65df5742fcf0fa29cc54517"
               rel="noopener"
@@ -59,7 +68,7 @@
             <a
               href="https://sandbox.explorer.unikname.network/wallets/SeaSHQnWybBL9PPeX3wNknsKftPhypeJ34"
               rel="noopener"
-              >Crypto account</a
+              >Crypto Account</a
             >
           </p>
           <p>

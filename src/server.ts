@@ -18,7 +18,7 @@ app.post('/gift', async (req, res) => {
     // Check there is enough token in faucet's wallet
     if ((await getWalletTokensAmount()) < GIFT_AMOUNT + GIFT_FEE) throw new Error('Not enough token left in wallet')
 
-    let outAddress = req.query.walletAddress
+    let outAddress = req.query.walletAddress as string
 
     if (!outAddress) throw new Error('You must pass an Unikname Crypto Account wallet address or a @unikname.')
 
@@ -33,13 +33,12 @@ app.post('/gift', async (req, res) => {
       outAddress = resolve.data as string
     }
 
-    if (!Database.isGiftable(outAddress, req.ip)) throw new Error('You can request SUNIK once a week.')
+    if (process.env.NODE_ENV !== 'development' && !Database.isGiftable(outAddress, req.ip))
+      throw new Error('You can request SUNIK once a week.')
 
     // Send the transaction and save it in databasee
-    const [sendResult] = await Promise.all([
-      send(outAddress, GIFT_AMOUNT, GIFT_FEE, GIFT_VENDORFIELD),
-      Database.add({ address: outAddress, amount: GIFT_AMOUNT, ip: req.ip, timestamp: new Date() })
-    ])
+    const sendResult = await send(outAddress, GIFT_AMOUNT, GIFT_FEE, GIFT_VENDORFIELD)
+    await Database.add({ address: outAddress, amount: GIFT_AMOUNT, ip: req.ip, timestamp: new Date() })
 
     res.json(sendResult)
     // res.json({
