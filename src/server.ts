@@ -10,18 +10,17 @@ import { send, initCrypto, getWalletTokensAmount } from './lib'
 const app = express()
 app.set('trust proxy', true)
 
-// Gift SUNS route
+// Gift SUNIK route
 app.post('/gift', async (req, res) => {
   try {
     res.set('Content-Type', 'application/json')
 
     // Check there is enough token in faucet's wallet
-    if ((await getWalletTokensAmount()) < GIFT_AMOUNT + GIFT_FEE)
-      throw new Error('Not enough token left in wallet')
+    if ((await getWalletTokensAmount()) < GIFT_AMOUNT + GIFT_FEE) throw new Error('Not enough token left in wallet')
 
     let outAddress = req.query.walletAddress
 
-    if (!outAddress) throw new Error('You must pass an UNS wallet address or a Unikname.')
+    if (!outAddress) throw new Error('You must pass an Unikname Crypto Account wallet address or a @unikname.')
 
     // Resolve the crypto account address if a @unik-name is provided
     if (outAddress.startsWith('@')) {
@@ -34,7 +33,7 @@ app.post('/gift', async (req, res) => {
       outAddress = resolve.data as string
     }
 
-    if (!Database.isGiftable(outAddress, req.ip)) throw new Error('Last SUNS gift was too soon.')
+    if (!Database.isGiftable(outAddress, req.ip)) throw new Error('You can request SUNIK once a week.')
 
     // Send the transaction and save it in databasee
     const [sendResult] = await Promise.all([
@@ -52,21 +51,23 @@ app.post('/gift', async (req, res) => {
     //   }
     // })
   } catch (error) {
+    console.error(error)
     res.status(409).json({ error: error.message })
   }
 })
 
-// Get SUNS tokens amount left
+// Get SUNIK tokens amount left
 app.get('/tokensLeft', async (req, res) => {
   try {
     res.set('Content-Type', 'application/json')
     res.json({ data: await getWalletTokensAmount() })
   } catch (error) {
+    console.error(error)
     res.status(500).json({ error: error.message })
   }
 })
 
-// Get total SUNS tokens gifted
+// Get total SUNIK tokens gifted
 app.get('/giftedTokensTotal', (req, res) => {
   res.set('Content-Type', 'application/json')
   res.json({ data: Database.getGiftedTokensTotal() })
@@ -89,7 +90,5 @@ export const startServer = async () => {
   console.log('Database cleaner service started.')
 
   // Start the server
-  app.listen(SERVER_PORT, () =>
-    console.log(`Server is listening on http://localhost:${SERVER_PORT}`)
-  )
+  app.listen(SERVER_PORT, () => console.log(`Server is listening on http://localhost:${SERVER_PORT}`))
 }

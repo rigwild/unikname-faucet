@@ -1,24 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>UNS faucet</title>
-    <link rel="shortcut icon" href="favicon.svg" type="image/svg+xml">
-    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Unikname Sandbox Faucet</title>
+    <link rel="shortcut icon" href="favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
     <div id="app">
       <div class="container">
-        <h1>UNS Sandbox network faucet</h1>
+        <h1>Unikname Sandbox Faucet</h1>
         <form @submit.prevent="sendTokens" class="main-form">
-          <input v-model="walletAddress" class="walletAddress" placeholder="Your UNS Sandbox Crypto Account address or your @unikname" required />
-          <button type="submit" class="sendBtn">Send SUNS</button>
+          <input
+            v-model="walletAddress"
+            class="walletAddress"
+            placeholder="Your Unikname Sandbox Crypto Account address or your @unikname"
+            required
+          />
+          <button type="submit" class="sendBtn">Send SUNIK</button>
         </form>
 
         <div v-if="loading" class="loading">
-          <img src="ball-triangle.svg" width="50">
+          <img src="ball-triangle.svg" width="50" />
         </div>
 
         <div v-if="logs" class="logs">
@@ -27,28 +32,39 @@
 
         <div class="info">
           <p>
-            Want to try the <a href="https://uns.network" rel="noopener">uns.network</a> ?<br><br>
-            Enter your Sandbox network Crypto Account address in the field above.<br>
-            You will receive some SUNS tokens.<br><br>
-            Note: you can request SUNS tokens from this faucet <b>once per week</b>.
+            Want to try the <a href="https://unikname.network" rel="noopener">unikname.network</a>?<br /><br />
+            Enter your Unikname Sandbox Crypto Account address in the field above.<br />
+            You will receive some SUNIK tokens.<br />
+            <a href="https://docs.unikname.network/interacting-with-uns.html" rel="noopener"
+              >Interacting with the unikname.network</a
+            ><br /><br />
+            Note: you can request SUNIK tokens from this faucet <b>once per week</b>.<br />
           </p>
 
           <p>
-            Total gifted SUNS tokens: <b>{{ giftedTokensTotal }} SUNS.</b><br>
-            SUNS tokens left in faucet's Crypto Account: <b>{{ remainingTokens }} SUNS.</b>
+            Total gifted SUNIK tokens: <b>{{ giftedTokensTotal }} SUNIK.</b><br />
+            SUNIK tokens left in faucet's Crypto Account: <b>{{ remainingTokens }} SUNIK.</b>
           </p>
         </div>
 
         <div class="meta">
           <p>
-            Faucet explorer links<br>
-            <a href="https://sandbox.explorer.uns.network/uniks/8709fcecb6748ced397fd2d98bcb931c51832886f65df5742fcf0fa29cc54517" rel="noopener">UNIK</a>
+            Faucet explorer links<br />
+            <a
+              href="https://sandbox.explorer.unikname.network/uniks/8709fcecb6748ced397fd2d98bcb931c51832886f65df5742fcf0fa29cc54517"
+              rel="noopener"
+              >Unikname</a
+            >
             -
-            <a href="https://sandbox.explorer.uns.network/wallets/SeaSHQnWybBL9PPeX3wNknsKftPhypeJ34" rel="noopener">Crypto account</a>
+            <a
+              href="https://sandbox.explorer.unikname.network/wallets/SeaSHQnWybBL9PPeX3wNknsKftPhypeJ34"
+              rel="noopener"
+              >Crypto account</a
+            >
           </p>
           <p>
-            Made with 💖 by <a href="https://github.com/rigwild" rel="noopener">rigwild</a><br>
-            <a href="https://github.com/rigwild/uns-faucet" rel="noopener">Available on GitHub</a>
+            Made with 💖 by <a href="https://github.com/rigwild" rel="noopener">rigwild</a><br />
+            <a href="https://github.com/rigwild/unikname-faucet" rel="noopener">Available on GitHub</a>
           </p>
         </div>
       </div>

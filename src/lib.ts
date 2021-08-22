@@ -1,5 +1,5 @@
 /*
-Sign and submit a transaction with uns.network Blockchain
+Sign and submit a transaction with unikname.network Blockchain
 
 Libs:
 "@uns/crypto": "^4.2.3",
@@ -52,8 +52,8 @@ const getNextNonce = async (walletAddress: string) => {
 /**
  * Build and sign a new transaction
  * @param receiverAddress Recipient wallet address
- * @param amount Amount of SUNS to send in sunstoshi (default = 0.1 SUNS = 0.1 * 1e8 sunstoshi)
- * @param fee Amount of SUNS used for the transaction fee (default = 0.01 SUNS = 0.01 * 1e8 sunstoshi)
+ * @param amount Amount of SUNIK to send in suniktoshi (default = 0.1 SUNIK = 0.1 * 1e8 suniktoshi)
+ * @param fee Amount of SUNIK used for the transaction fee (default = 0.01 SUNIK = 0.01 * 1e8 suniktoshi)
  * @param vendorField Vendor field (SmartBridge)
  * @see https://gist.github.com/rigwild/d1bb28f176d011cb458499ec4490aeb1
  */
@@ -78,10 +78,7 @@ const signTransaction = async (
   // Set the bridge chain field
   if (vendorField) transactionToSend.vendorField(vendorField)
 
-  return transactionToSend
-    .sign(PASSPHRASE)
-    .secondSign(SECOND_PASSPHRASE)
-    .getStruct()
+  return transactionToSend.sign(PASSPHRASE).secondSign(SECOND_PASSPHRASE).getStruct()
 }
 
 /**
@@ -93,14 +90,14 @@ const sendTransaction = (transaction: Interfaces.ITransactionData) => unsClient.
 /**
  * Send a transaction
  * @param receiverAddress Recipient wallet address
- * @param amount Amount of SUNS to send in sunstoshi (default = 0.1 SUNS)
- * @param fee Amount of SUNS used for the transaction fee (default = 0.01 SUNS)
+ * @param amount Amount of SUNIK to send in suniktoshi (default = 0.1 SUNIK)
+ * @param fee Amount of SUNIK used for the transaction fee (default = 0.01 SUNIK)
  * @param vendorField Vendor field (SmartBridge)
  */
 export const send = async (receiverAddress: string, amount = 0.1, fee = 0.01, vendorField?: string) =>
   signTransaction(receiverAddress, `${amount * 1e8}`, `${fee * 1e8}`, vendorField).then(res => sendTransaction(res))
 
-/** Get remaining tokens amount in faucet's wallet (in SUNS) */
+/** Get remaining tokens amount in faucet's wallet (in SUNIK) */
 export const getWalletTokensAmount = async () => {
   const walletData = await unsClient.wallet.get(Identities.Address.fromPassphrase(PASSPHRASE))
   if (walletData.data) return walletData.data.balance / 1e8

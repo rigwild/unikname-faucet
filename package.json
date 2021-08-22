@@ -1,8 +1,8 @@
 {
-  "name": "uns-faucet",
-  "version": "1.0.0",
+  "name": "unikname-faucet",
+  "version": "1.1.0",
   "private": true,
-  "description": "A faucet to gift SUNS tokens to uns.network users 🤑💸",
+  "description": "A faucet to gift SUNIK tokens to Unikname users 🤑💸",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "directories": {
